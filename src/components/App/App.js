@@ -27,9 +27,7 @@ class App extends Component {
   handleLogout = () => {
     this.setState({ isLoggedIn: false })
   }
-  setUser = user => {
-    this.setState({ user: user })
-  }
+  
   handleLogin = userId => {
     this.setState({ isLoggedIn: true, userId: userId})
   }
@@ -37,7 +35,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App__header">
-          <Header logout={this.handleLogout} userId={this.state.userId} setUser={this.setUser} />
+          <Header logout={this.handleLogout} userId={this.state.userId} />
         </header>
         <main className="App__main">
           <div role='alert'>
