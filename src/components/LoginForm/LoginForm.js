@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import TokenService from '../../services/token-api-service'
 import { Button, Input } from '../../Utils/Utils'
 import AuthApiService from '../../services/auth-api-service'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 
+const loginPost = Yup.object().shape({
+    username: Yup.string().required("Required"),
+    password: Yup.string().required("Required")
+})
 
 export default class LoginForm extends Component {
     static defaultProps = {
@@ -10,56 +16,55 @@ export default class LoginForm extends Component {
     };
     state = { error: null };
 
-    handleSubmitJwtAuth = e => {
-        e.preventDefault();
-        this.setState({ error: null });
-        const { username, password } = e.target
+    
 
-        AuthApiService.postLogin({
-            username: username.value,
-            password: password.value
-        }).then(res => {
-            if(!res.ok) {
-                res.json().then(responseJson => 
-                this.setState({ error: responseJson.error }))
-            } else {
-                username.value = ''
-                password.value = ''
-                res.json().then(resJson => {
-                    TokenService.saveAuthToken(resJson.authToken);
-                    this.props.onLoginSuccess(resJson.userId)
-                })
-            }
-        })
-    };
+
 
 
     render() {
-        const { error } = this.state;
         return (
-            <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
-                <div role="alert">
-                    {error && <p className="red">{error}</p>}
-                </div>
-                <div className="username">
-                    <label htmlFor="LoginForm__username">User name</label>
-                    <Input
-                        required
-                        name="username"
-                        id="LoginForm__username"
-                        defaultValue='demo'></Input>
-                </div>
-                <div className="password">
-                    <label htmlFor="LoginForm__password">Password</label>
-                    <Input
-                        required
-                        name="password"
-                        type="password"
-                        id="LoginForm__password"
-                        defaultValue='TestPassword1!'></Input>
-                </div>
-                <Button type="submit">Login</Button>
-            </form>
+            <div>
+                <h1>Login</h1>
+                <Formik
+                    initialValues={{
+                        username: 'demo',
+                        password: 'TestPassword1!'
+                    }}
+                    validationSchema={loginPost}
+                    onSubmit={values => {
+                        AuthApiService.postLogin(values).then(res => {
+                            if (!res.ok) {
+                                res.json().then(responseJson =>
+                                    this.setState({ error: responseJson.error }))
+                            } else {
+                                res.json().then(resJson => {
+                                    TokenService.saveAuthToken(resJson.authToken);
+                                    this.props.onLoginSuccess(resJson.userId)
+                                })
+                            }
+                        })
+                    }}
+                >
+                    {({ errors, touched }) => (
+                        <Form>
+                            <label htmlFor='username'>Username: </label>
+                            <Field name='username' />
+                            {errors.username && touched.username ? (
+                                <div>Please enter your username</div>
+                            ) : null}
+                            <label htmlFor='password'>Password: </label>
+                            <Field name='password' type='password'/>
+                            {errors.password && touched.password ? (
+                                <div>Please enter your password</div>
+                            ) : null}
+                            <button type='submit'>Login</button>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
+
+
+            
         )
     }
 }
