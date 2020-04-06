@@ -3,10 +3,25 @@ import LoginForm from '../../components/LoginForm/LoginForm'
 import { Section } from '../../Utils/Utils'
 
 export default class LoginPage extends Component {
+    static defaultProps = {
+        location: {},
+        history: {
+            push: () => {}
+        }
+    }
+    handleLoginSuccess = (userId) => {
+        const { location, history, login } = this.props;
+        const destination = (location.state || {}).from || '/';
+        history.push(destination);
+        login(userId);
+    };
+
     render() {
         return (
             <Section className='LoginPage'>
-                <LoginForm />
+                <h2>Login</h2>
+                <p>You can try the tracker out by using the demo account if you don't want to create one.</p>
+                <LoginForm onLoginSuccess={this.handleLoginSuccess} />
             </Section>
         )
     }

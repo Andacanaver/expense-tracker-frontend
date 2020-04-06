@@ -34,7 +34,7 @@
 }
 
 .Required {
-    color: #fff;
+    color: red;
     font-family: Arial;
     font-weight: bold;
 }
