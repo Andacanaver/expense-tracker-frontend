@@ -35,7 +35,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App__header">
-          <Header logout={this.handleLogout} userId={this.state.userId} />
+          <Header logout={this.handleLogout} />
         </header>
         <main className="App__main">
           <div role='alert'>
