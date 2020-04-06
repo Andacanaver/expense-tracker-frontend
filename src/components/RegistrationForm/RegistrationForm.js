@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Input, Required } from '../../Utils/Utils'
 import AuthApiService from '../../services/auth-api-service'
-import ExpenseContext from '../../contexts/ExpenseContext'
 
 export default class RegistrationForm extends Component {
-    static contextType = ExpenseContext
     static defaultProps = {
         onRegistrationSuccess: () => {}
     }
@@ -80,7 +78,6 @@ export default class RegistrationForm extends Component {
                         id='RegistrationForm__password'
                     ></Input>                </div>
                 <Button type='submit'>Register</Button>
-
             </form>
         )
     }

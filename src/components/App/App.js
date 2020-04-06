@@ -7,6 +7,7 @@ import LoginPage from '../../pages/LoginPage/LoginPage'
 import RegistrationPage from '../../pages/RegistrationPage/RegistrationPage'
 import ExpenseListPage from '../../pages/ExpenseListPage/ExpenseListPage';
 import ExpenseContext from '../../contexts/ExpenseContext'
+import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 
 
 
@@ -46,8 +47,8 @@ class App extends Component {
             <Route exact path={'/'} component={LandingPage} />
             <Route path={'/login'} render={(props)=>{return <LoginPage login={this.handleLogin} {...props}/>}} />
             <Route path={'/register'} component={RegistrationPage} />
-            <Route path={'/expenses'} render={(props) => {return <ExpenseListPage store={this.props.store} {...props} />}} />
-            <Route path={'/expense/:expenseId'} component={ExpenseListPage} />
+            <Route path={'/expenses'} component={ExpenseListPage} />
+            <Route component={NotFoundPage} />
           </Switch>
         </main>
       </div>

@@ -4,6 +4,7 @@ import ExpenseListItem from '../../components/ExpenseListItem/ExpenseListItem';
 import ExpenseContext from '../../contexts/ExpenseContext';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm'
 import ExpenseApiService from '../../services/expenses-api-service';
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
 
 
 export default class ExpenseListPage extends Component {
@@ -53,19 +54,21 @@ export default class ExpenseListPage extends Component {
     render () {
         const { error } = this.context
         return (
-            <Section className='ExpenseListPage'>
-                <div className='AddExpensePage'>
-                    <ExpenseForm />
-                </div>
-                <div className='ExpenseListItem'>
-                    <h1>Previous Expenses</h1>
-                    {error ? (
-                        <p className='red'>There was an error, try again</p>
-                    ) : (
-                            this.renderExpenses()
-                        )}
-                </div>
-            </Section>
+            <ErrorBoundary>
+                <Section className='ExpenseListPage'>
+                    <div className='AddExpensePage'>
+                        <ExpenseForm />
+                    </div>
+                    <div className='ExpenseListItem'>
+                        <h1>Previous Expenses</h1>
+                        {error ? (
+                            <p className='red'>There was an error, try again</p>
+                        ) : (
+                                this.renderExpenses()
+                            )}
+                    </div>
+                </Section>
+            </ErrorBoundary>
         )
     }
 }
