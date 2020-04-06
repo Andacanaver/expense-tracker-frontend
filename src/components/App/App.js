@@ -6,19 +6,16 @@ import LandingPage from '../../pages/LandingPage/LandingPage';
 import LoginPage from '../../pages/LoginPage/LoginPage'
 import RegistrationPage from '../../pages/RegistrationPage/RegistrationPage'
 import ExpenseListPage from '../../pages/ExpenseListPage/ExpenseListPage';
-import ExpenseContext from '../../contexts/ExpenseContext'
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 
 
 
 class App extends Component {
-  static contextType = ExpenseContext;
 
   state = {
     hasError: false,
     isLoggedIn: null,
-    userId: null,
-    user: {}
+    userId: null
   }
   static getDerivedStateFromError(error) {
     return { hasError: true }

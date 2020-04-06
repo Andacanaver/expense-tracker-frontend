@@ -1,50 +1,59 @@
 import React, { Component } from 'react'
-import ExpenseContext from '../../contexts/ExpenseContext'
 import { format } from 'date-fns'
-import { v4 as uuidv4 } from 'uuid';
 import ExpenseApiService from '../../services/expenses-api-service'
+import ExpenseContext from '../../contexts/ExpenseContext'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 
-export default class ExpenseForm extends Component {
+const addExpense = Yup.object().shape({
+    expense: Yup.number().min(0, 'Positive numbers only').required('Required'),
+    description: Yup.string().required('Required')
+})
+
+class ExpenseForm extends Component {
     static contextType = ExpenseContext;
     state = {
         error: null
     }
-
-    handleSubmit = e => {
-        e.preventDefault();
-        this.setState({ error: null })
-        const { expense, description } = e.target
-        const newExpense = {
-            expense: parseFloat(expense.value).toFixed(2),
-            description: description.value,
-            date_created: new Date()
-        }
-        ExpenseApiService.insertExpense(newExpense)
-            .then(res => {
-                expense.value = ''
-                description.value = ''
-                this.context.addExpense(res)
-            })
-            .catch(this.context.setError)
-    }
+    
     render() {
-        const { error } = this.state
         console.log(this.context.expenses)
         return (
-            <form className='ExpenseForm' onSubmit={this.handleSubmit}>
-                <div role='alert'>
-                    {error && <p className='red'>{error}</p>}
-                </div>
-                <div className='expense'>
-                    <label htmlFor='ExpenseForm_expense'>Expense</label>
-                    <input id='ExpenseForm_expense' name='expense' required />
-                </div>
-                <div className='description'>
-                    <label htmlFor='ExpenseForm_description'>Description of Expense</label>
-                    <input id='ExpenseForm_description' name='description'/>
-                </div>
-                <button type='submit'>Add Expense</button>
-            </form>
+            <div>
+                <h2>Add Expense</h2>
+                <Formik
+                    initialValues={{
+                        expense: '',
+                        description: ''
+                    }}
+                    validationSchema={addExpense}
+                    onSubmit={values => {
+                        ExpenseApiService.insertExpense(values)
+                            .then(this.context.addExpense(values))
+                            .catch(this.context.setError)
+                    }}
+                >
+                    {({ errors, touched }) => (
+                        <Form>
+                            <label htmlFor='expense'>Add Expense</label>
+                            <Field name='expense' />
+                            {errors.expense && touched.expense ? (
+                                <div>Please Enter a number</div>
+                            ) : null}
+                            <label htmlFor='description'>Add Description</label>
+                            <Field name='description' />
+                            {errors.description && touched.description ? (
+                                <div>Please Enter a Description</div>
+                            ) : null}
+                            <button type='submit'>Add Expense</button>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
         )
     }
 }
+
+
+export default ExpenseForm
+

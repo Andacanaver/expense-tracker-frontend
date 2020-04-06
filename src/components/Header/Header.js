@@ -19,9 +19,9 @@ export default class Header extends Component {
                 <Hyph />
                 <Link to="/">Home</Link>
                 <Hyph />
-                <Link to='/register'>Register</Link>
+                <Link to="/register">Register</Link>
                 <Hyph />
-                <Link to='/expenses'>Expenses</Link>
+                <Link to="/expenses">Expenses</Link>
             </div>
         )
     }
@@ -31,9 +31,9 @@ export default class Header extends Component {
             <div className='Header__not-logged-in'>
                 <Link to="/">Home</Link>
                 <Hyph />
-                <Link to='/login'>Login</Link>
+                <Link to="/login">Login</Link>
                 <Hyph />
-                <Link to='/register'>Register</Link>
+                <Link to="/register">Register</Link>
             </div>
         )
     }
