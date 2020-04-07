@@ -19,8 +19,6 @@ export default class Header extends Component {
                 <Hyph />
                 <Link to="/">Home</Link>
                 <Hyph />
-                <Link to="/register">Register</Link>
-                <Hyph />
                 <Link to="/expenses">Expenses</Link>
             </div>
         )
