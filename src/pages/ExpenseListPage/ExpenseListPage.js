@@ -26,6 +26,7 @@ export default class ExpenseListPage extends Component {
 
     renderExpenses() {
         const { expenses } = this.context
+        console.log(expenses)
         if (expenses.length > 0) {
             return (
                 <table className='expense-table'>

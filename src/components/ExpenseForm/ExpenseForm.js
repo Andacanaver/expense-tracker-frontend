@@ -27,9 +27,12 @@ class ExpenseForm extends Component {
                         description: ''
                     }}
                     validationSchema={addExpense}
-                    onSubmit={values => {
+                    onSubmit={(values, { resetForm }) => {
                         ExpenseApiService.insertExpense(values)
-                            .then(this.context.addExpense(values))
+                            .then(res => {
+                                this.context.addExpense(values)
+                                resetForm()
+                            })
                             .catch(this.context.setError)
                     }}
                 >
