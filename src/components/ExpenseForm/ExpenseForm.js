@@ -6,7 +6,11 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 
 const addExpense = Yup.object().shape({
-    expense: Yup.number().integer().min(0, 'Positive numbers only').required('Required'),
+    expense: Yup.number().test(
+        'is-decimal',
+        'invalid decimal',
+        value => (value + "").match(/^\d*\.{1}\d*$/),
+    ),
     description: Yup.string().required('Required')
 })
 
