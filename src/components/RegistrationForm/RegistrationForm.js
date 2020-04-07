@@ -3,6 +3,7 @@ import { Button, Input, Required } from '../../Utils/Utils'
 import AuthApiService from '../../services/auth-api-service'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
+import TokenService from '../../services/token-api-service'
 
 const registerValidation = Yup.object().shape({
     full_name: Yup.string().min(3, 'name must be longer than 3 characters').required('Required'),
@@ -13,7 +14,8 @@ const registerValidation = Yup.object().shape({
 
 export default class RegistrationForm extends Component {
     static defaultProps = {
-        onRegistrationSuccess: () => {}
+        onRegistrationSuccess: () => {},
+        onLoginSuccess: () => {}
     }
     state = {
         error: null
@@ -38,8 +40,18 @@ export default class RegistrationForm extends Component {
                                         this.setState({ error: response.error })
                                     })
                                 } else {
-                                    res.json().then(response => {
-                                        this.props.onRegistrationSuccess();
+                                    const { username, password } = values
+                                    const login = {username, password}
+                                    AuthApiService.postLogin(login).then(res => {
+                                        if (!res.ok) {
+                                            res.json().then(responseJson =>
+                                                this.setState({ error: responseJson.error }))
+                                        } else {
+                                            res.json().then(resJson => {
+                                                TokenService.saveAuthToken(resJson.authToken);
+                                                this.props.onLoginSuccess(resJson.userId)
+                                            })
+                                        }
                                     })
                                 }
                             })

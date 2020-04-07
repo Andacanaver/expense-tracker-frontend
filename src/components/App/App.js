@@ -41,7 +41,7 @@ class App extends Component {
           <Switch>
             <Route exact path={'/'} component={LandingPage} />
             <Route path={'/login'} render={(props)=>{return <LoginPage login={this.handleLogin} {...props}/>}} />
-            <Route path={'/register'} component={RegistrationPage} />
+            <Route path={'/register'} render={(props) => { return <RegistrationPage login={this.handleLogin} {...props} /> }}/>
             <Route path={'/expenses'} component={ExpenseListPage} />
             <Route component={NotFoundPage} />
           </Switch>

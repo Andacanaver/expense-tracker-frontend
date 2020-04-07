@@ -7,8 +7,15 @@ export default class RegistrationPage extends Component {
     static defaultProps = {
         history: {
             push: () => {}
-        }
+        },
+        location: {}
     }
+    handleLoginSuccess = (userId) => {
+        const { location, history, login } = this.props;
+        const destination = (location.state || {}).from || '/expenses';
+        history.push(destination);
+        login(userId);
+    };
     handleRegistrationSuccess = user => {
         const { history } = this.props;
         history.push('/login')
@@ -18,7 +25,7 @@ export default class RegistrationPage extends Component {
             <ErrorBoundary>
                 <Section className='RegistrationPage'>
                     <h2>Register</h2>
-                    <RegistrationForm onRegistrationSuccess={this.handleRegistrationSuccess} />
+                    <RegistrationForm onLoginSuccess={this.handleLoginSuccess} />
                 </Section>
             </ErrorBoundary>
         )
