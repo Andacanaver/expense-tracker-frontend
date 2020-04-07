@@ -11,7 +11,7 @@ const addExpense = Yup.object().shape({
         'invalid decimal',
         value => (value + "").match(/^\d*\.{1}\d*$/),
     ),
-    description: Yup.string().required('Required')
+    description: Yup.string().max(128, 'Description should be less than 128 characters').required('Required')
 })
 
 class ExpenseForm extends Component {
@@ -19,7 +19,10 @@ class ExpenseForm extends Component {
     state = {
         error: null
     }
-    
+    decimalPlaces = (e) => {
+        var t = e.value;
+        e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    }
     render() {
         console.log(this.context.expenses)
         return (
@@ -39,16 +42,21 @@ class ExpenseForm extends Component {
                             })
                             .catch(this.context.setError)
                     }}
+                    
                 >
                     {({ errors, touched }) => (
                         <Form>
                             <label htmlFor='expense'>Add Expense</label>
-                            <Field name='expense' />
+                            <Field 
+                                name='expense' 
+                                onInput={e => {this.decimalPlaces(e.target)}}
+                                
+                            />
                             {errors.expense && touched.expense ? (
                                 <div>Please enter a number</div>
                             ) : null}
                             <label htmlFor='description'>Add Description</label>
-                            <Field name='description' />
+                            <Field name='description' maxLength='128'/>
                             {errors.description && touched.description ? (
                                 <div>Please Enter a Description</div>
                             ) : null}
