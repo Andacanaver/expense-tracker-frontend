@@ -21,7 +21,7 @@ export default class ExpenseListItem extends Component {
         return (
             <tr>
                 {/*<td>{format(dateCreated, 'dd/MM/yyyy')}</td>*/}
-                <td>{expense.expense}</td>
+                <td>{`$ ${expense.expense}`}</td>
                 <td>{expense.description}</td>
                 <td><button className='expense__delete' type='button' onClick={this.handleDelete}>Delete</button></td>
             </tr>
