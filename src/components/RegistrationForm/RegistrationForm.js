@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import { Button, Input, Required } from '../../Utils/Utils'
 import AuthApiService from '../../services/auth-api-service'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
+
+const registerValidation = Yup.object().shape({
+    full_name: Yup.string().min(3, 'name must be longer than 3 characters').required('Required'),
+    email_address: Yup.string().email().required('Required'),
+    username: Yup.string().min(3, 'needs to be longer than 3 characters').max(16, 'Can be no longer than 16 characters').required('Required'),
+    password: Yup.string().min(8, 'must be at least 8 characters long').max(32, 'can be no longer than 32 charactes').required('Required')
+})
 
 export default class RegistrationForm extends Component {
     static defaultProps = {
@@ -9,76 +18,60 @@ export default class RegistrationForm extends Component {
     state = {
         error: null
     }
-    handleSubmit = ev => {
-        ev.preventDefault()
-        const { full_name, email_address, username, password } = ev.target;
-        this.setState({ error: null });
-
-        AuthApiService.postUser({
-            full_name: full_name.value,
-            email_address: email_address.value,
-            username: username.value,
-            password: password.value
-        })
-            .then(res => {
-                if(!res.ok) {
-                    res.json().then(response => {
-                        this.setState({ error: response.error })
-                    })
-                } else {
-                    full_name.value = ''
-                    email_address.value = ''
-                    username.value = ''
-                    password.value = ''
-                    res.json().then(response => {
-                        this.props.onRegistrationSuccess();
-                    })
-                }
-            })
-    }
     render() {
         const { error } = this.state;
         return (
-            <form className='RegistrationForm' onSubmit={this.handleSubmit}>
-                <div role='alert'>
-                    {error && <p className='red'>{error}</p>}
-                </div>
-                <div className='full_name'>
-                    <label htmlFor='RegistrationForm_fullname'>Full Name: <Required /></label>
-                    <Input
-                        name='full_name'
-                        type='text'
-                        required
-                        id='RegistrationForm__full_name'
-                    ></Input>
-                </div>
-                <div className='email_address'>
-                    <label htmlFor='RegistrationForm_email'>Email Address: <Required /></label>
-                    <Input
-                        name='email_address'
-                        type='email'
-                        required
-                        id='RegistrationForm__email_address'
-                    ></Input>
-                </div>
-                <div className='username'>
-                    <label htmlFor='RegistrationForm_username'>Username: <Required/></label>
-                    <Input
-                        name='username'
-                        type='text'
-                        required
-                        id='RegistrationForm__username'
-                    ></Input>                </div>
-                <div className='password'>
-                    <label htmlFor='RegistrationForm_password'>Password: <Required/> </label>
-                    <Input
-                        name='password'
-                        type='password'
-                        required
-                        id='RegistrationForm__password'
-                    ></Input>                </div>
-                <Button type='submit'>Register</Button>
-            </form>
+            <div>
+                <Formik
+                    initialValues={{
+                        full_name: '',
+                        email_address: '',
+                        username: '',
+                        password: ''
+                    }}
+                    validationSchema={registerValidation}
+                    onSubmit={values => {
+                        AuthApiService.postUser(values)
+                            .then(res => {
+                                if (!res.ok) {
+                                    res.json().then(response => {
+                                        this.setState({ error: response.error })
+                                    })
+                                } else {
+                                    res.json().then(response => {
+                                        this.props.onRegistrationSuccess();
+                                    })
+                                }
+                            })
+                    }}
+                >
+                    {({ errors, touched }) => (
+                        <Form>
+                            <div role='alert'>
+                                {error && <p className='red'>{error}</p>}
+                            </div>
+                            <label htmlFor='full_name'>Full Name: </label>
+                            <Field name='full_name'/>
+                            {errors.full_name && touched.full_name ? (
+                                <div>Enter a name</div>
+                            ) : null}
+                            <label htmlFor='email_address'>Email Address: </label>
+                            <Field name='email_address' type='email'/>
+                            {errors.email_address && touched.email_address ? ( <div>Enter an email address</div>) : null}
+                            <label htmlFor='username'>Username: </label>
+                            <Field name='username'/>
+                            {errors.username && touched.password ? (<div>Enter a user name</div>) : null}
+                            <label htmlFor='password'>Password</label>
+                            <Field name='password' type='password'/>
+                            {errors.password && touched.password ? (
+                                <div>Enter a password</div>
+                            ) : null}
+                            <button type='submit'>Register</button>
+                        </Form>
+
+                    )}
+                </Formik>
+            </div>
         )
     }
 }

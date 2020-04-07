@@ -6,7 +6,7 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 
 const addExpense = Yup.object().shape({
-    expense: Yup.number().min(0, 'Positive numbers only').required('Required'),
+    expense: Yup.number().integer().min(0, 'Positive numbers only').required('Required'),
     description: Yup.string().required('Required')
 })
 
@@ -38,7 +38,7 @@ class ExpenseForm extends Component {
                             <label htmlFor='expense'>Add Expense</label>
                             <Field name='expense' />
                             {errors.expense && touched.expense ? (
-                                <div>Please Enter a number</div>
+                                <div>Please enter a number</div>
                             ) : null}
                             <label htmlFor='description'>Add Description</label>
                             <Field name='description' />

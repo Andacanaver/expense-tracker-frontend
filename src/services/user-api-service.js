@@ -1,5 +1,5 @@
 import config from '../config'
-import TokenService from './token-service'
+import TokenService from './token-api-service'
 
 const UserService = {
     updateUser(user) {
@@ -29,7 +29,16 @@ const UserService = {
             }
             return res.json();
         })
-
+    },
+    postUser(user) {
+        console.log(user)
+        return fetch(`${config.API_ENDPOINT}/users`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }).then(console.log(user))
     }
 };
 
