@@ -6,11 +6,7 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 
 const addExpense = Yup.object().shape({
-    expense: Yup.number().test(
-        'is-decimal',
-        'invalid decimal',
-        value => (value + "").match(/^\d*\.{1}\d*$/),
-    ),
+    expense: Yup.number().required('Required'),
     description: Yup.string().max(128, 'Description should be less than 128 characters').required('Required')
 })
 
@@ -23,6 +19,7 @@ class ExpenseForm extends Component {
         var t = e.value;
         e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     }
+    
     render() {
         console.log(this.context.expenses)
         return (
