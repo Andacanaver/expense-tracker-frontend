@@ -36,6 +36,8 @@ class ExpenseForm extends Component {
                             .then(res => {
                                 this.context.addExpense(values)
                                 resetForm()
+                                ExpenseApiService.getExpenses()
+                                    .then(this.context.setExpenses)
                             })
                             .catch(this.context.setError)
                     }}
