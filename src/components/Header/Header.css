@@ -1,4 +1,6 @@
-.header_links {
+.header__nav {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
 }
