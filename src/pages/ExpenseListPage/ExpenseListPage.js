@@ -23,24 +23,17 @@ export default class ExpenseListPage extends Component {
             .then(this.context.setExpenses)
             .catch(this.context.setError)
     }
-    
-    sortExpenses(expenses) {
-        const arrOfExpenses = expenses.sort((a, b) => {
-            return a[expenses.date_created] < b[expenses.date_created] ? 1 : a[expenses.date_created] > b[expenses.date_created] ? -1 : 0;
-        })
-        return arrOfExpenses
-    }
 
     renderExpenses() {
         const { expenses } = this.context
-        const listOfExpenses = this.sortExpenses(expenses)
-        console.log(listOfExpenses)
         if (expenses.length > 0) {
             return (
                 <table className='expense-table'>
                     <thead>
                         <tr>
-                            {/*<th>Date</th>*/}
+                            
+                            {/*//todo Want to add date to table
+                            <th>Date</th>*/}
                             <th>Expense</th>
                             <th>Description</th>
                         </tr>

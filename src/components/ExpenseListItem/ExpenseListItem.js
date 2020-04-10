@@ -19,7 +19,9 @@ export default class ExpenseListItem extends Component {
         const dateCreated = parseISO(expense.date_created)
         return (
             <tr>
-                {/*<td>{format(dateCreated, 'MM/dd/yyyy')}</td>*/}
+                
+                {/*//todo figure out invalid time when adding new expense
+                <td>{format(dateCreated, 'MM/dd/yyyy')}</td>*/}
                 <td>{`$${expense.expense}`}</td>
                 <td>{expense.description}</td>
                 <td><button className='expense__delete' type='button' onClick={this.handleDelete}>Delete</button></td>
