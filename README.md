@@ -12,7 +12,7 @@
   </ul>
 </p>
 
-<p>You can visit the live app <a href='https://expense.moesprojects.com>Here</a></p>
+<p>You can visit the live app <a href='https://expense.moesprojects.com'>Here</a></p>
   
 <h2>Screenshots of the App</h2>
 
