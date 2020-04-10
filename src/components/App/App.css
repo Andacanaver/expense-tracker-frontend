@@ -6,11 +6,36 @@
   height: 40vmin;
   pointer-events: none;
 }
+button.btn:hover {
+  cursor: pointer;
+}
+button.btn {
+  margin: 10px;
+  font-size: 1em;
+  background-color: blanchedalmond;
+  border-radius: 10px;
+}
+
+form input {
+  border-radius: 5px;
+  box-shadow: 10%;
+  font-size: 1em;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+a {
+  text-decoration: none;
+  color: darkcyan;
+}
+
+a:hover {
+  cursor: pointer;
+  color: blue;
 }
 
 .App__header {

@@ -1,5 +1,4 @@
 
-
 .expense-form-container form{
     display: flex;
     justify-content: center;
@@ -13,19 +12,6 @@
 
 .expense-form-container h2 {
     margin: 10px 0 0 0;
-}
-
-.expense-form-container form input {
-    border-radius: 5px;
-    box-shadow: 10%;
-    font-size: 1em;
-}
-
-.expense-form-container form button {
-    margin: 10px;
-    font-size: 1em;
-    background-color: blanchedalmond;
-    border-radius: 10px;
 }
 
 .input-red {

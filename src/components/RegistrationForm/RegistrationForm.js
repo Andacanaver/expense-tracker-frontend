@@ -4,6 +4,7 @@ import AuthApiService from '../../services/auth-api-service'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import TokenService from '../../services/token-api-service'
+import './RegistrationForm.css'
 
 const registerValidation = Yup.object().shape({
     full_name: Yup.string().min(3, 'name must be longer than 3 characters').required('Required'),
@@ -23,7 +24,7 @@ export default class RegistrationForm extends Component {
     render() {
         const { error } = this.state;
         return (
-            <div>
+            <div className='register-form-container'>
                 <Formik
                     initialValues={{
                         full_name: '',
@@ -58,7 +59,7 @@ export default class RegistrationForm extends Component {
                     }}
                 >
                     {({ errors, touched }) => (
-                        <Form>
+                        <Form className='register-form'>
                             <div role='alert'>
                                 {error && <p className='red'>{error}</p>}
                             </div>
@@ -78,7 +79,7 @@ export default class RegistrationForm extends Component {
                             {errors.password && touched.password ? (
                                 <div>Enter a password</div>
                             ) : null}
-                            <button type='submit'>Register</button>
+                            <button type='submit' className='btn'>Register</button>
                         </Form>
 
                     )}

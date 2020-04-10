@@ -4,6 +4,7 @@ import { Button, Input } from '../../Utils/Utils'
 import AuthApiService from '../../services/auth-api-service'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
+import './LoginForm.css'
 
 const loginPost = Yup.object().shape({
     username: Yup.string().required("Required"),
@@ -23,8 +24,8 @@ export default class LoginForm extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Login</h1>
+            <div className='login-form-container'>
+                
                 <Formik
                     initialValues={{
                         username: 'demo',
@@ -46,7 +47,7 @@ export default class LoginForm extends Component {
                     }}
                 >
                     {({ errors, touched }) => (
-                        <Form>
+                        <Form className='login-form'>
                             <label htmlFor='username'>Username: </label>
                             <Field name='username' />
                             {errors.username && touched.username ? (
@@ -57,7 +58,7 @@ export default class LoginForm extends Component {
                             {errors.password && touched.password ? (
                                 <div>Please enter your password</div>
                             ) : null}
-                            <button type='submit'>Login</button>
+                            <button type='submit' className='btn'>Login</button>
                         </Form>
                     )}
                 </Formik>
