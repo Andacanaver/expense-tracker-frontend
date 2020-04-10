@@ -1,0 +1,27 @@
+.expense-table {
+    text-align: center;
+    width: 100%;
+}
+
+.expense__delete {
+    background-color: darkblue;
+    color: white;
+    border-radius: 5px;
+}
+
+.expense-table tbody td {
+    border: 1px solid black;
+    width: 33%;
+}
+
+@media screen and (min-width: 768px) {
+    .expense__delete {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .expense-table {
+        width: 75%;
+    }
+}

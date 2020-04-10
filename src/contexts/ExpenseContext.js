@@ -30,7 +30,7 @@ export class ExpenseProvider extends Component {
 
     addExpense = expense => {
         this.setState({
-            expenses: [...this.state.expenses, expense]
+            expenses: [expense, ...this.state.expenses]
         })
     }
 

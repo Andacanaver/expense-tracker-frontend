@@ -5,6 +5,7 @@ import ExpenseContext from '../../contexts/ExpenseContext';
 import ExpenseForm from '../../components/ExpenseForm/ExpenseForm'
 import ExpenseApiService from '../../services/expenses-api-service';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
+import './ExpenseListPage.css'
 
 
 export default class ExpenseListPage extends Component {
@@ -23,10 +24,17 @@ export default class ExpenseListPage extends Component {
             .catch(this.context.setError)
     }
     
+    sortExpenses(expenses) {
+        const arrOfExpenses = expenses.sort((a, b) => {
+            return a[expenses.date_created] < b[expenses.date_created] ? 1 : a[expenses.date_created] > b[expenses.date_created] ? -1 : 0;
+        })
+        return arrOfExpenses
+    }
 
     renderExpenses() {
         const { expenses } = this.context
-        console.log(expenses)
+        const listOfExpenses = this.sortExpenses(expenses)
+        console.log(listOfExpenses)
         if (expenses.length > 0) {
             return (
                 <table className='expense-table'>

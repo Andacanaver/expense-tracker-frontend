@@ -4,6 +4,7 @@ import ExpenseApiService from '../../services/expenses-api-service'
 import ExpenseContext from '../../contexts/ExpenseContext'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
+import './ExpenseForm.css'
 
 const addExpense = Yup.object().shape({
     expense: Yup.number().required('Required'),
@@ -21,14 +22,14 @@ class ExpenseForm extends Component {
     }
     
     render() {
-        console.log(this.context.expenses)
         return (
-            <div>
+            <div className='expense-form-container'>
                 <h2>Add Expense</h2>
                 <Formik
                     initialValues={{
                         expense: '',
-                        description: ''
+                        description: '',
+                        date_create: new Date(Date.UTC)
                     }}
                     validationSchema={addExpense}
                     onSubmit={(values, { resetForm }) => {
@@ -36,6 +37,7 @@ class ExpenseForm extends Component {
                             .then(res => {
                                 this.context.addExpense(values)
                                 resetForm()
+                                //Not sure this is the best option
                                 ExpenseApiService.getExpenses()
                                     .then(this.context.setExpenses)
                             })
@@ -45,21 +47,21 @@ class ExpenseForm extends Component {
                 >
                     {({ errors, touched }) => (
                         <Form>
-                            <label htmlFor='expense'>Add Expense</label>
+                            <label htmlFor='expense'>Expense Value</label>
                             <Field 
                                 name='expense' 
                                 onInput={e => {this.decimalPlaces(e.target)}}
-                                
+                                maxLength='9'
                             />
                             {errors.expense && touched.expense ? (
-                                <div>Please enter a number</div>
+                                <div className='input-red'>Please enter a number</div>
                             ) : null}
-                            <label htmlFor='description'>Add Description</label>
+                            <label htmlFor='description'>What was the Expense for?</label>
                             <Field name='description' maxLength='128'/>
                             {errors.description && touched.description ? (
-                                <div>Please Enter a Description</div>
+                                <div className='input-red'>Please Enter a Description</div>
                             ) : null}
-                            <button type='submit'>Add Expense</button>
+                            <button type='submit' className='btn'>Add Expense</button>
                         </Form>
                     )}
                 </Formik>
