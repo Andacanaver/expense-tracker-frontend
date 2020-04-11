@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ExpenseContext from '../../contexts/ExpenseContext'
 import ExpenseApiService from '../../services/expenses-api-service'
-import { format, parseISO } from 'date-fns'
 import './ExpenseListItem.css'
 
 export default class ExpenseListItem extends Component {
@@ -16,12 +15,9 @@ export default class ExpenseListItem extends Component {
     }
     render() {
         const { expense } = this.props
-        const dateCreated = parseISO(expense.date_created)
         return (
             <tr>
-                
-                {/*//todo figure out invalid time when adding new expense
-                <td>{format(dateCreated, 'MM/dd/yyyy')}</td>*/}
+                {/*//todo add date column*/}
                 <td>{`$${expense.expense}`}</td>
                 <td>{expense.description}</td>
                 <td><button className='expense__delete' type='button' onClick={this.handleDelete}>Delete</button></td>

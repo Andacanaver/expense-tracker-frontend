@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { format } from 'date-fns'
 import ExpenseApiService from '../../services/expenses-api-service'
 import ExpenseContext from '../../contexts/ExpenseContext'
 import { Formik, Form, Field } from 'formik'

@@ -8,11 +8,12 @@
     color: white;
     border-radius: 5px;
 }
-
-.expense-table tbody td {
-    border: 1px solid black;
-    width: 33%;
+.expense__delete:hover {
+    cursor: pointer;
+    background-color: lightblue;
 }
+
+
 
 @media screen and (min-width: 768px) {
     .expense__delete {

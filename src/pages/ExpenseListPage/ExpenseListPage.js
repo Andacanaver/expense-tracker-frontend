@@ -36,6 +36,7 @@ export default class ExpenseListPage extends Component {
                             <th>Date</th>*/}
                             <th>Expense</th>
                             <th>Description</th>
+                            <th>Delete Expense</th>
                         </tr>
                     </thead>
                     <tbody>
