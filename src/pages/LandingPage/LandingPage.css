@@ -1,3 +1,20 @@
+.landing-about {
+    text-align: center;
+    
+}
+.landing-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+}
+.landing-image img{
+    width: 100%;
+}
+.landing-image {
+    margin-top: 50px;
+}
 @media screen and (min-width: 768px) {
     p {
         width: 75%;
@@ -8,6 +25,5 @@
 @media screen and (min-width: 1024px) {
     p {
         width: 50%;
-        margin: 0 auto;
     }
 }
