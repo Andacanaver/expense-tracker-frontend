@@ -1,13 +1,12 @@
-.landing-about {
-    text-align: center;
-    
-}
+
 .landing-page {
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-flow: column wrap;
+    padding: 10px;
+    margin: 0 auto;
 }
 .landing-image img{
     width: 100%;
