@@ -17,10 +17,6 @@ export default class LoginForm extends Component {
     state = { error: null };
 
     
-
-
-
-
     render() {
         return (
             <div className='login-form-container'>

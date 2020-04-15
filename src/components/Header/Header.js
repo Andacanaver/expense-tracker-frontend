@@ -11,7 +11,7 @@ export default class Header extends Component {
         TokenService.clearAuthToken();
         this.props.logout()
     }
-
+    //renders the logout link when user is logged in
     renderLogoutLink() {
         return (
             <div className='Header__logged-in'>
@@ -23,7 +23,7 @@ export default class Header extends Component {
             </div>
         )
     }
-
+    //renders the login and register link 
     renderLoginLink() {
         return (
             <div className='Header__not-logged-in'>

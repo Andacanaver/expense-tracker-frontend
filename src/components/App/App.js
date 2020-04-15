@@ -20,11 +20,11 @@ class App extends Component {
   static getDerivedStateFromError(error) {
     return { hasError: true }
   }
-  
+  //used to log out the user
   handleLogout = () => {
     this.setState({ isLoggedIn: false })
   }
-  
+  //used to get the users id and mark logged in
   handleLogin = userId => {
     this.setState({ isLoggedIn: true, userId: userId})
   }

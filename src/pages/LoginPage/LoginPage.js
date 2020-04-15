@@ -10,6 +10,8 @@ export default class LoginPage extends Component {
             push: () => {}
         }
     }
+    //takes the users id for login
+    //once logged in redirects the user to the expenses page
     handleLoginSuccess = (userId) => {
         const { location, history, login } = this.props;
         const destination = (location.state || {}).from || '/expenses';

@@ -10,16 +10,14 @@ export default class RegistrationPage extends Component {
         },
         location: {}
     }
+
     handleLoginSuccess = (userId) => {
         const { location, history, login } = this.props;
         const destination = (location.state || {}).from || '/expenses';
         history.push(destination);
         login(userId);
     };
-    handleRegistrationSuccess = user => {
-        const { history } = this.props;
-        history.push('/login')
-    }
+    
     render() {
         return (
             <ErrorBoundary>

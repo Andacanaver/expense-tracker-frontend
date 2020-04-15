@@ -16,7 +16,7 @@ export default class ExpenseListPage extends Component {
             params: {}
         }
     }
-
+    //gets and sets the expenses for the user
     componentDidMount() {
         this.context.clearError();
         ExpenseApiService.getExpenses()

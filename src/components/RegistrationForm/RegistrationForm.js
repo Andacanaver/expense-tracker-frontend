@@ -42,6 +42,7 @@ export default class RegistrationForm extends Component {
                                 } else {
                                     const { username, password } = values
                                     const login = {username, password}
+                                    //on successful registration, will login the user and direct to expenses page
                                     AuthApiService.postLogin(login).then(res => {
                                         if (!res.ok) {
                                             res.json().then(responseJson =>

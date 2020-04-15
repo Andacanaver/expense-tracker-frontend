@@ -2,10 +2,12 @@ import React, {Component} from 'react'
 import './LandingPage.css'
 import { Link } from 'react-router-dom'
 import LandingImage from '../../landing-image.png'
-import { BrowserView, MobileView, isMobile } from 'react-device-detect'
+import {  isMobile } from 'react-device-detect'
 import ExpenseMobile from '../../expense-mobile.png'
 
 export default class LandingPage extends Component {
+    //renders a mobile screenshot when the device is 
+    //mobile and a normal screenshot when in a browser
     renderContent = () => {
         if (isMobile) {
             return <img src={ExpenseMobile} alt='mobile screenshot of expenses page' />

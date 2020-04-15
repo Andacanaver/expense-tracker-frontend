@@ -15,6 +15,7 @@ class ExpenseForm extends Component {
     state = {
         error: null
     }
+    //used to restrict the expenses input to 2 decimals
     decimalPlaces = (e) => {
         var t = e.value;
         e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
