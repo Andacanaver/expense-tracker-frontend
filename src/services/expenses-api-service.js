@@ -20,7 +20,7 @@ const ExpenseApiService = {
         return fetch(`${config.API_ENDPOINT}/expenses/${expenseId}`,{
             method: 'DELETE',
             headers: {
-                "content-type": "applicaiton/json",
+                "content-type": "application/json",
                 authorization: `bearer ${TokenService.getAuthToken()}`
             }
         })
