@@ -1,4 +1,3 @@
 export default {
-	API_ENDPOINT:
-		'postgres://moe.jacobw@ep-curly-salad-490949.us-east-2.aws.neon.tech/neondb',
+	API_ENDPOINT: 'https://backend-expense.onrender.com/api',
 };
