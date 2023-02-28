@@ -1,3 +1,3 @@
 export default {
-	API_ENDPOINT: 'hhttps://sangria-greyhound-shoe.cyclic.app'
+	API_ENDPOINT: 'https://sangria-greyhound-shoe.cyclic.app'
 };
